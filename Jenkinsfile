@@ -6,8 +6,10 @@ pipeline {
         jdk 'java8'
     }
     stages {
+        stage('Quality Check') {
         steps {
             echo 'go'
+        }
         }
     }
     
