@@ -1,16 +1,14 @@
-
-pipeline {
-    agent any
-    tools {
-        maven 'Maven3.1.1'
-        jdk 'java8'
+node {
+    stage('preparation') {
+        // Checkout the master branch of the Laravel framework repository
+        git branch: 'master', url: 'https://github.com/laravel/framework.git'
     }
-    stages {
-        stage('Quality Check') {
-        steps {
-            echo 'go'
-        }
-        }
+    stage("composer_install") {
+        // Run `composer update` as a shell script
+        sh 'composer install'
     }
-    
+    stage("phpunit") {
+        // Run PHPUnit
+        sh 'vendor/bin/phpunit'
+    }
 }
